@@ -1,12 +1,986 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart - Online Shopping Site</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: #1f5db7;
+            color: white;
+            padding: 12px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo i {
+            color: #ffd500;
+        }
+
+        .search-container {
+            flex: 1;
+            margin: 0 30px;
+            display: flex;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 2px;
+            font-size: 14px;
+        }
+
+        .search-container button {
+            background-color: #ffd500;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            font-size: 14px;
+            transition: opacity 0.3s;
+        }
+
+        .nav-item:hover {
+            opacity: 0.8;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .categories {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+            font-size: 12px;
+            white-space: nowrap;
+            transition: color 0.3s;
+        }
+
+        .category-item:hover {
+            color: #1f5db7;
+        }
+
+        .category-icon {
+            font-size: 24px;
+            color: #7b8a9a;
+        }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 20px 20px 0 20px;
+            border-radius: 4px;
+        }
+
+        .banner h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .banner p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .banner-btn {
+            background-color: #ffd500;
+            color: #333;
+            padding: 12px 30px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: background-color 0.3s;
+        }
+
+        .banner-btn:hover {
+            background-color: #ffb300;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Deals Section */
+        .deals-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 2px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .deal-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .deal-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 140px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+            overflow: hidden;
+        }
+
+        .deal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .deal-info {
+            padding: 10px;
+        }
+
+        .deal-title {
+            font-size: 12px;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .deal-price {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f5db7;
+            margin-bottom: 5px;
+        }
+
+        .deal-original-price {
+            font-size: 11px;
+            color: #999;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+
+        .deal-discount {
+            background-color: #ffd500;
+            color: #333;
+            padding: 3px 5px;
+            font-size: 10px;
+            font-weight: 600;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        /* Products Grid */
+        .products-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 2px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #999;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #31a049;
+            color: white;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .product-info {
+            padding: 12px;
+        }
+
+        .product-name {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-rating {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 8px;
+        }
+
+        .product-rating i {
+            color: #ffc107;
+        }
+
+        .product-price-section {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1f5db7;
+        }
+
+        .product-original-price {
+            font-size: 12px;
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .product-discount {
+            font-size: 12px;
+            color: #31a049;
+            font-weight: 600;
+        }
+
+        .product-button {
+            width: 100%;
+            padding: 8px;
+            background-color: #1f5db7;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 2px;
+            transition: background-color 0.3s;
+        }
+
+        .product-button:hover {
+            background-color: #1a4a96;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #172033;
+            color: white;
+            padding: 40px 20px 20px;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffd500;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+            font-size: 12px;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ffd500;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .search-container {
+                margin: 0;
+                flex: 1 1 100%;
+            }
+
+            .header-nav {
+                gap: 15px;
+                font-size: 12px;
+            }
+
+            .categories {
+                gap: 15px;
+            }
+
+            .deals-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .banner h2 {
+                font-size: 24px;
+            }
+
+            .banner p {
+                font-size: 14px;
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-top {
+                flex-direction: column;
+            }
+
+            .header-nav {
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .search-container input,
+            .search-container button {
+                font-size: 12px;
+            }
+
+            .categories {
+                gap: 10px;
+            }
+
+            .deals-grid,
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <i class="fas fa-shopping-cart"></i>
+                <span>Flipkart</span>
+            </div>
+            <div class="search-container">
+                <input type="text" placeholder="Search for products, brands and more">
+                <button><i class="fas fa-search"></i> Search</button>
+            </div>
+            <div class="header-nav">
+                <a href="#" class="nav-item">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Sign Up</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-store"></i>
+                    <span>Become a Seller</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help</span>
+                </a>
+            </div>
+        </div>
+    </header>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+        <div class="categories">
+            <a href="#" class="category-item">
+                <i class="fas fa-mobile-alt category-icon"></i>
+                <span>Mobiles</span>
+            </a>
+            <a href="#" class="category-item">
+                <i class="fas fa-laptop category-icon"></i>
+                <span>Laptops</span>
+            </a>
+            <a href="#" class="category-item">
+                <i class="fas fa-camera category-icon"></i>
+                <span>Cameras</span>
+            </a>
+            <a href="#" class="category-item">
+                <i class="fas fa-headphones category-icon"></i>
+                <span>Audio</span>
+            </a>
+            <a href="#" class="category-item">
+                <i class="fas fa-tv category-icon"></i>
+                <span>Electronics</span>
+            </a>
+            <a href="#" class="category-item">
+                <i class="fas fa-home category-icon"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="category-item">
+                <i class="fas fa-tshirt category-icon"></i>
+                <span>Fashion</span>
+            </a>
+            <a href="#" class="category-item">
+                <i class="fas fa-book category-icon"></i>
+                <span>Books</span>
+            </a>
+            <a href="#" class="category-item">
+                <i class="fas fa-gamepad category-icon"></i>
+                <span>Gaming</span>
+            </a>
+        </div>
+    </nav>
 
+    <!-- Banner -->
+    <div class="banner">
+        <h2>🎉 Special Deals This Week!</h2>
+        <p>Get up to 70% off on selected items</p>
+        <button class="banner-btn">Shop Now</button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Best Deals Section -->
+        <div class="deals-section">
+            <h3 class="section-title">⚡ Best Deals</h3>
+            <div class="deals-grid">
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <i class="fas fa-mobile-alt" style="font-size: 40px; color: #ddd;"></i>
+                    </div>
+                    <div class="deal-info">
+                        <div class="deal-title">Smartphone Deal</div>
+                        <div class="deal-price">₹12,999</div>
+                        <div class="deal-original-price">₹19,999</div>
+                        <span class="deal-discount">35% OFF</span>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <i class="fas fa-headphones" style="font-size: 40px; color: #ddd;"></i>
+                    </div>
+                    <div class="deal-info">
+                        <div class="deal-title">Wireless Earbuds</div>
+                        <div class="deal-price">₹2,499</div>
+                        <div class="deal-original-price">₹4,999</div>
+                        <span class="deal-discount">50% OFF</span>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <i class="fas fa-laptop" style="font-size: 40px; color: #ddd;"></i>
+                    </div>
+                    <div class="deal-info">
+                        <div class="deal-title">Laptop Deals</div>
+                        <div class="deal-price">₹35,999</div>
+                        <div class="deal-original-price">₹55,999</div>
+                        <span class="deal-discount">36% OFF</span>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <i class="fas fa-camera" style="font-size: 40px; color: #ddd;"></i>
+                    </div>
+                    <div class="deal-info">
+                        <div class="deal-title">Camera Deal</div>
+                        <div class="deal-price">₹24,999</div>
+                        <div class="deal-original-price">₹39,999</div>
+                        <span class="deal-discount">37% OFF</span>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <i class="fas fa-watch" style="font-size: 40px; color: #ddd;"></i>
+                    </div>
+                    <div class="deal-info">
+                        <div class="deal-title">Smartwatch</div>
+                        <div class="deal-price">₹5,999</div>
+                        <div class="deal-original-price">₹9,999</div>
+                        <span class="deal-discount">40% OFF</span>
+                    </div>
+                </div>
+
+                <div class="deal-card">
+                    <div class="deal-image">
+                        <i class="fas fa-tablet-alt" style="font-size: 40px; color: #ddd;"></i>
+                    </div>
+                    <div class="deal-info">
+                        <div class="deal-title">Tablet Deal</div>
+                        <div class="deal-price">₹18,999</div>
+                        <div class="deal-original-price">₹29,999</div>
+                        <span class="deal-discount">37% OFF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Products Section -->
+        <div class="products-section">
+            <h3 class="section-title">🔥 Featured Products</h3>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-mobile-alt" style="font-size: 50px; color: #ddd;"></i>
+                        <span class="product-badge">BEST SELLER</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">iPhone 15 Pro Max</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (2,543 ratings)
+                        </div>
+                        <div class="product-price-section">
+                            <span class="product-price">₹1,39,999</span>
+                            <span class="product-original-price">₹1,99,999</span>
+                            <span class="product-discount">30% off</span>
+                        </div>
+                        <button class="product-button">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-laptop" style="font-size: 50px; color: #ddd;"></i>
+                        <span class="product-badge">NEW</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Dell XPS 15 Laptop</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (1,892 ratings)
+                        </div>
+                        <div class="product-price-section">
+                            <span class="product-price">₹89,999</span>
+                            <span class="product-original-price">₹1,29,999</span>
+                            <span class="product-discount">31% off</span>
+                        </div>
+                        <button class="product-button">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-headphones" style="font-size: 50px; color: #ddd;"></i>
+                        <span class="product-badge">SALE</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Sony WH-1000XM5 Headphones</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (3,421 ratings)
+                        </div>
+                        <div class="product-price-section">
+                            <span class="product-price">₹24,999</span>
+                            <span class="product-original-price">₹39,999</span>
+                            <span class="product-discount">38% off</span>
+                        </div>
+                        <button class="product-button">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-camera" style="font-size: 50px; color: #ddd;"></i>
+                        <span class="product-badge">HOT</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Canon EOS R5 Camera</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (892 ratings)
+                        </div>
+                        <div class="product-price-section">
+                            <span class="product-price">₹2,89,999</span>
+                            <span class="product-original-price">₹3,79,999</span>
+                            <span class="product-discount">24% off</span>
+                        </div>
+                        <button class="product-button">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-watch" style="font-size: 50px; color: #ddd;"></i>
+                        <span class="product-badge">EXCLUSIVE</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Apple Watch Series 9</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (5,214 ratings)
+                        </div>
+                        <div class="product-price-section">
+                            <span class="product-price">₹34,999</span>
+                            <span class="product-original-price">₹49,999</span>
+                            <span class="product-discount">30% off</span>
+                        </div>
+                        <button class="product-button">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-tablet-alt" style="font-size: 50px; color: #ddd;"></i>
+                        <span class="product-badge">TRENDING</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">iPad Pro 12.9 inch</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (4,563 ratings)
+                        </div>
+                        <div class="product-price-section">
+                            <span class="product-price">₹79,999</span>
+                            <span class="product-original-price">₹1,09,999</span>
+                            <span class="product-discount">27% off</span>
+                        </div>
+                        <button class="product-button">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-gamepad" style="font-size: 50px; color: #ddd;"></i>
+                        <span class="product-badge">BEST DEAL</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">PlayStation 5 Console</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            (6,234 ratings)
+                        </div>
+                        <div class="product-price-section">
+                            <span class="product-price">₹49,999</span>
+                            <span class="product-original-price">₹64,999</span>
+                            <span class="product-discount">23% off</span>
+                        </div>
+                        <button class="product-button">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-headphones" style="font-size: 50px; color: #ddd;"></i>
+                        <span class="product-badge">CLEARANCE</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Bose QuietComfort 45</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            (2,145 ratings)
+                        </div>
+                        <div class="product-price-section">
+                            <span class="product-price">₹28,999</span>
+                            <span class="product-original-price">₹42,999</span>
+                            <span class="product-discount">33% off</span>
+                        </div>
+                        <button class="product-button">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ABOUT</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Leadership</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>HELP</h4>
+                <ul>
+                    <li><a href="#">Payments</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Cancellation & Returns</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Report Abuse</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>POLICY</h4>
+                <ul>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Security</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>SOCIAL</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Flipkart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Search functionality
+        document.querySelector('.search-container button').addEventListener('click', function() {
+            const searchTerm = document.querySelector('.search-container input').value;
+            if (searchTerm) {
+                alert('Searching for: ' + searchTerm);
+            }
+        });
+
+        // Add to Cart functionality
+        document.querySelectorAll('.product-button').forEach(button => {
+            button.addEventListener('click', function() {
+                this.textContent = 'Added to Cart ✓';
+                this.style.backgroundColor = '#31a049';
+                setTimeout(() => {
+                    this.textContent = 'Add to Cart';
+                    this.style.backgroundColor = '#1f5db7';
+                }, 2000);
+            });
+        });
+
+        // Category navigation click
+        document.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Category: ' + this.textContent.trim());
+            });
+        });
+
+        // Product card click
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('button')) {
+                    alert('Opening product details...');
+                }
+            });
+        });
+
+        // Header nav links
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Navigating to: ' + this.textContent.trim());
+            });
+        });
+
+        // Banner button
+        document.querySelector('.banner-btn').addEventListener('click', function() {
+            alert('Starting your shopping journey!');
+        });
+    </script>
 </body>
 </html>
